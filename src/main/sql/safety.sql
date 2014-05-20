@@ -1,20 +1,5 @@
-CREATE DATABASE mysql/jdbcrealm/whiteboard;
-USE mysql/jdbcrealm/whiteboard;
-CREATE TABLE `mysql/jdbcrealm/whiteboard`.`users` (
-`username` varchar(255) NOT NULL,
-`password` varchar(255) DEFAULT NULL,
-PRIMARY KEY (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `mysql/jdbcrealm/whiteboard`.`groups` (
-`username` varchar(255) DEFAULT NULL,
-`groupname` varchar(255) DEFAULT NULL)
-ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE INDEX groups_users_FK1 ON groups(username ASC);
-
-INSERT INTO users VALUES('bob','password1');
-INSERT INTO users VALUES('sally','password2');
-INSERT INTO users VALUES('tom','password3');
-INSERT INTO groups VALUES('bob','admin');
-INSERT INTO groups VALUES('sally','user');
-INSERT INTO groups VALUES('tom','user');
+INSERT INTO groups VALUES(1,'user','pedro');
+INSERT INTO groups VALUES(1,'user','vitor');
+INSERT INTO users VALUES('pedro','ee5cd7d5d96c8874117891b2c92a036f96918e66c102bc698ae77542c186f981',1,1);
+INSERT INTO users VALUES('vitor','7b827bc16e9e53a5f16aa71cbef3f22e7c293ba056ec033b2f171007266146d7',2,1);
