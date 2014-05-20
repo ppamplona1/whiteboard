@@ -34,7 +34,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Groups.findByGroupid", query = "SELECT g FROM Groups g WHERE g.groupid = :groupid"),
     @NamedQuery(name = "Groups.findByGroupname", query = "SELECT g FROM Groups g WHERE g.groupname = :groupname"),
     @NamedQuery(name = "Groups.findByUsername", query = "SELECT g FROM Groups g WHERE g.username = :username")})
-public class Groups implements Serializable {
+public class Group implements Serializable {
+
+    public static final String findAll = "Groups.findAll";
+    public static final String findByGroupid = "Groups.findByGroupid";
+    public static final String findByGroupname = "Groups.findByGroupname";
+    public static final String findByUsername = "Groups.findByUsername";
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -52,16 +57,16 @@ public class Groups implements Serializable {
     @Column(name = "username")
     private String username;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "groupsGroupid")
-    private List<Users> usersList;
+    private List<User> usersList;
 
-    public Groups() {
+    public Group() {
     }
 
-    public Groups(Integer groupid) {
+    public Group(Integer groupid) {
         this.groupid = groupid;
     }
 
-    public Groups(Integer groupid, String groupname, String username) {
+    public Group(Integer groupid, String groupname, String username) {
         this.groupid = groupid;
         this.groupname = groupname;
         this.username = username;
@@ -92,11 +97,11 @@ public class Groups implements Serializable {
     }
 
     @XmlTransient
-    public List<Users> getUsersList() {
+    public List<User> getUsersList() {
         return usersList;
     }
 
-    public void setUsersList(List<Users> usersList) {
+    public void setUsersList(List<User> usersList) {
         this.usersList = usersList;
     }
 
@@ -110,10 +115,10 @@ public class Groups implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Groups)) {
+        if (!(object instanceof Group)) {
             return false;
         }
-        Groups other = (Groups) object;
+        Group other = (Group) object;
         if ((this.groupid == null && other.groupid != null) || (this.groupid != null && !this.groupid.equals(other.groupid))) {
             return false;
         }

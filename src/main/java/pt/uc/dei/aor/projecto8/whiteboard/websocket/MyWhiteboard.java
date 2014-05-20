@@ -39,8 +39,9 @@ public class MyWhiteboard {
     }
 
     @OnOpen
-    public void onOpen(Session peer) {
+    public void onOpen(ByteBuffer data, Session peer) {
         peers.add(peer);
+
     }
 
     @OnClose

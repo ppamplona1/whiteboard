@@ -5,10 +5,12 @@
  */
 var wsUri;
 if (document.location.protocol === "https:") {
-    wsUri = "wss://" + document.location.host + "/Proj8/whiteboardendpoint";
+    wsUri = "wss://" + document.location.host + "/Whiteboard/whiteboardendpoint";
+  
 }
 else {
-    wsUri = "ws://" + document.location.host + "/Proj8/whiteboardendpoint";
+    wsUri = "ws://" + document.location.host + "/Whiteboard/whiteboardendpoint";
+    
 }
 var websocket = new WebSocket(wsUri);
 

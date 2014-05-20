@@ -32,11 +32,15 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "users")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u"),
-    @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username"),
-    @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"),
+    @NamedQuery(name = User.findAll, query = "SELECT u FROM Users u"),
+    @NamedQuery(name = User.findByUsername, query = "SELECT u FROM Users u WHERE u.username = :username"),
+
     @NamedQuery(name = "Users.findByUserid", query = "SELECT u FROM Users u WHERE u.userid = :userid")})
-public class Users implements Serializable {
+public class User implements Serializable {
+
+    public static final String findAll = "Users.findAll";
+    public static final String findByUsername = "Users.findByUsername";
+
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -57,16 +61,16 @@ public class Users implements Serializable {
     private List<Whiteboard> whiteboardList;
     @JoinColumn(name = "groups_groupid", referencedColumnName = "groupid")
     @ManyToOne(optional = false)
-    private Groups groupsGroupid;
+    private Group groupsGroupid;
 
-    public Users() {
+    public User() {
     }
 
-    public Users(Integer userid) {
+    public User(Integer userid) {
         this.userid = userid;
     }
 
-    public Users(Integer userid, String username, String password) {
+    public User(Integer userid, String username, String password) {
         this.userid = userid;
         this.username = username;
         this.password = password;
@@ -105,11 +109,11 @@ public class Users implements Serializable {
         this.whiteboardList = whiteboardList;
     }
 
-    public Groups getGroupsGroupid() {
+    public Group getGroupsGroupid() {
         return groupsGroupid;
     }
 
-    public void setGroupsGroupid(Groups groupsGroupid) {
+    public void setGroupsGroupid(Group groupsGroupid) {
         this.groupsGroupid = groupsGroupid;
     }
 
@@ -123,10 +127,10 @@ public class Users implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Users)) {
+        if (!(object instanceof User)) {
             return false;
         }
-        Users other = (Users) object;
+        User other = (User) object;
         if ((this.userid == null && other.userid != null) || (this.userid != null && !this.userid.equals(other.userid))) {
             return false;
         }

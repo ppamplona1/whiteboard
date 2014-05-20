@@ -9,14 +9,15 @@ package pt.uc.dei.aor.projecto8.whiteboard.facades;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import pt.uc.dei.aor.projecto8.whiteboard.entities.Users;
+import pt.uc.dei.aor.projecto8.whiteboard.entities.User;
 
 /**
  *
  * @author User
  */
 @Stateless
-public class UsersFacade extends AbstractFacade<Users> {
+public class UsersFacade extends AbstractFacade<User> {
+
     @PersistenceContext(unitName = "WhiteboardPU")
     private EntityManager em;
 
@@ -26,7 +27,12 @@ public class UsersFacade extends AbstractFacade<Users> {
     }
 
     public UsersFacade() {
-        super(Users.class);
+        super(User.class);
+    }
+
+    public User findUserByUserName(String username) {
+        return (User) em.createNamedQuery(User.findByUsername).setParameter("username",
+                username).getSingleResult();
     }
 
 }

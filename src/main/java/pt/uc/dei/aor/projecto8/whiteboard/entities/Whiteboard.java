@@ -51,7 +51,7 @@ public class Whiteboard implements Serializable {
     private String locationFile;
     @JoinColumn(name = "users_username", referencedColumnName = "username")
     @ManyToOne(optional = false)
-    private Users usersUsername;
+    private User usersUsername;
 
     public Whiteboard() {
     }
@@ -90,11 +90,11 @@ public class Whiteboard implements Serializable {
         this.locationFile = locationFile;
     }
 
-    public Users getUsersUsername() {
+    public User getUsersUsername() {
         return usersUsername;
     }
 
-    public void setUsersUsername(Users usersUsername) {
+    public void setUsersUsername(User usersUsername) {
         this.usersUsername = usersUsername;
     }
 
