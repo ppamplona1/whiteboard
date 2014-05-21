@@ -12,7 +12,7 @@ else {
     wsUri = "ws://" + document.location.host + "/Whiteboard/whiteboardendpoint";
   
 }
-alert(wsUri);
+
 
 var websocket = new WebSocket(wsUri);
 
