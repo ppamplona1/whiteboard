@@ -11,19 +11,17 @@
         <title>Facelets Template</title>
     </h:head>
 
-    <h:body onload="defineImageBinary();">
+    <h:body >
 
-        <div id="left">
+        <div id="left" align="center">
 
             <h1>Colaborative Whiteboard</h1>
             <br/>
             <form name="canvas">
-                <canvas id="myCanvas" width="150" height="150" style="border:1px solid #000000;"></canvas>
+                <canvas id="myCanvas" width="300" height="300"  style="border:3px solid #000000;"></canvas>
                 <br/>
-                <input type="submit" value="Save whiteboard" onclick="saveImage();" />
+         
 
-                <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/savewhiteboard.js"></script>
-                <a href="templatefile8.xhtml"></a>
                 <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/whiteboard.js"></script>
                 <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/websocket.js"></script>
             </form>
