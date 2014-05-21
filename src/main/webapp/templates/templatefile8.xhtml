@@ -18,12 +18,16 @@
 
             <h1>Colaborative Whiteboard</h1>
             <br/>
+            <form name="canvas">
+                <canvas id="myCanvas" width="150" height="150" style="border:1px solid #000000;"></canvas>
+                <br/>
+                <input type="submit" value="Save whiteboard" onclick="saveImage();" />
 
-            <canvas id="myCanvas" width="150" height="150" style="border:1px solid #000000;"></canvas>
-
-            <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/whiteboard.js"></script>
-            <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/websocket.js"></script>
-
+                <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/savewhiteboard.js"></script>
+                <a href="templatefile8.xhtml"></a>
+                <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/whiteboard.js"></script>
+                <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/websocket.js"></script>
+            </form>
             <ui:define name ="left"> </ui:define>
         </div>
         <div id="content" class="left_content">

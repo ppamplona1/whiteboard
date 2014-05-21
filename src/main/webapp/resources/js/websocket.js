@@ -10,7 +10,7 @@ if (document.location.protocol === "https:") {
 }
 else {
     wsUri = "ws://" + document.location.host + "/Whiteboard/whiteboardendpoint";
-    
+  
 }
 var websocket = new WebSocket(wsUri);
 

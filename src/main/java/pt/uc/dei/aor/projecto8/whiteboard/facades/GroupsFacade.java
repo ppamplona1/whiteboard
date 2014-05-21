@@ -9,14 +9,14 @@ package pt.uc.dei.aor.projecto8.whiteboard.facades;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import pt.uc.dei.aor.projecto8.whiteboard.entities.Group;
+import pt.uc.dei.aor.projecto8.whiteboard.entities.Groups;
 
 /**
  *
  * @author User
  */
 @Stateless
-public class GroupsFacade extends AbstractFacade<Group> {
+public class GroupsFacade extends AbstractFacade<Groups> {
     @PersistenceContext(unitName = "WhiteboardPU")
     private EntityManager em;
 
@@ -26,7 +26,7 @@ public class GroupsFacade extends AbstractFacade<Group> {
     }
 
     public GroupsFacade() {
-        super(Group.class);
+        super(Groups.class);
     }
 
 }

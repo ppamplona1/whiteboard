@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author User
+ * @author Users
  */
 @Entity
 @Table(name = "whiteboard")
@@ -51,7 +51,7 @@ public class Whiteboard implements Serializable {
     private String locationFile;
     @JoinColumn(name = "users_username", referencedColumnName = "username")
     @ManyToOne(optional = false)
-    private User usersUsername;
+    private Users usersUsername;
 
     public Whiteboard() {
     }
@@ -90,11 +90,11 @@ public class Whiteboard implements Serializable {
         this.locationFile = locationFile;
     }
 
-    public User getUsersUsername() {
+    public Users getUsersUsername() {
         return usersUsername;
     }
 
-    public void setUsersUsername(User usersUsername) {
+    public void setUsersUsername(Users usersUsername) {
         this.usersUsername = usersUsername;
     }
 

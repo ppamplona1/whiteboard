@@ -6,42 +6,41 @@
 
 package pt.uc.dei.aor.projecto8.whiteboard.beans;
 
-import javax.annotation.Resource;
-import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import pt.uc.dei.aor.projecto8.whiteboard.entities.User;
+import pt.uc.dei.aor.projecto8.whiteboard.entities.Users;
 import pt.uc.dei.aor.projecto8.whiteboard.facades.UsersFacade;
 
 /**
  *
- * @author User
+ * @author Users
  */
 @Named
 @SessionScoped
 @Stateful
 public class LoggedUser {
 
-    @Resource
-    SessionContext ctx;
     @Inject
     private UsersFacade userFacade;
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-    private User loggedUser;
+    private Users loggedUser;
 
-    public User getLoggedUser() {
-//        if (loggedUser == null) {
-//            String username = ctx.getCallerPrincipal().getName();
-//            userFacade.findUserByUserName(ctx.getCallerPrincipal().getName());
-//        }
+    public Users getLoggedUser() {
+        if (loggedUser == null) {
+            loggedUser = userFacade.findUserByUserName();
+        }
         return loggedUser;
     }
 
-    public void setLoggedUser(User loggedUser) {
+    public void setLoggedUser(Users loggedUser) {
         this.loggedUser = loggedUser;
+    }
+
+    public boolean confirmLoggedUser() {
+        return loggedUser != null;
     }
 
 }

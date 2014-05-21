@@ -26,6 +26,7 @@ import javax.websocket.server.ServerEndpoint;
 public class MyWhiteboard {
 
     private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
+    private static ByteBuffer bytebuffer = ByteBuffer.allocate(100000);
 
     @OnMessage
     public void broadcastFigure(Figure figure, Session session) throws IOException, EncodeException {
@@ -39,8 +40,9 @@ public class MyWhiteboard {
     }
 
     @OnOpen
-    public void onOpen(ByteBuffer data, Session peer) {
+    public void onOpen(Session peer) throws IOException {
         peers.add(peer);
+        peer.getBasicRemote().sendBinary(bytebuffer);
 
     }
 
@@ -51,11 +53,7 @@ public class MyWhiteboard {
 
     @OnMessage
     public void broadcastSnapshot(ByteBuffer data, Session session) throws IOException {
-        System.out.println("broadcastBinary: " + data);
-        for (Session peer : peers) {
-            if (!peer.equals(session)) {
-                peer.getBasicRemote().sendBinary(data);
-            }
-        }
+
+        bytebuffer = data;
     }
 }

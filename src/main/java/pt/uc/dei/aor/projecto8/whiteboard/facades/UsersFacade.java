@@ -6,20 +6,27 @@
 
 package pt.uc.dei.aor.projecto8.whiteboard.facades;
 
+import javax.annotation.Resource;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import pt.uc.dei.aor.projecto8.whiteboard.entities.User;
+import pt.uc.dei.aor.projecto8.whiteboard.entities.Users;
+import pt.uc.dei.aor.projecto8.whiteboard.utilities.MessagesForUser;
 
 /**
  *
- * @author User
+ * @author Users
  */
 @Stateless
-public class UsersFacade extends AbstractFacade<User> {
+public class UsersFacade extends AbstractFacade<Users> {
 
     @PersistenceContext(unitName = "WhiteboardPU")
     private EntityManager em;
+
+    @Resource
+    SessionContext ctx;
 
     @Override
     protected EntityManager getEntityManager() {
@@ -27,12 +34,17 @@ public class UsersFacade extends AbstractFacade<User> {
     }
 
     public UsersFacade() {
-        super(User.class);
+        super(Users.class);
     }
 
-    public User findUserByUserName(String username) {
-        return (User) em.createNamedQuery(User.findByUsername).setParameter("username",
-                username).getSingleResult();
+    public Users findUserByUserName() {
+        try {
+            return (Users) em.createNamedQuery(Users.findByUsername).setParameter("username",
+                    ctx.getCallerPrincipal().getName()).getSingleResult();
+        } catch (NoResultException ex) {
+            MessagesForUser.addMessageError("User not found");
+            return new Users();
+        }
     }
 
 }
