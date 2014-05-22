@@ -11,20 +11,26 @@ import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+import pt.uc.dei.aor.projecto8.whiteboard.messages.SenderBean;
 
 /**
  *
  * @author User
  */
+@Stateless
 @ServerEndpoint(value = "/whiteboardendpoint", encoders = {FigureEncoder.class}, decoders = {FigureDecoder.class})
 public class MyWhiteboard {
 
+    @Inject
+    private SenderBean senderBean;
     private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
     private static ByteBuffer bytebuffer = ByteBuffer.allocate(100000);
 
@@ -53,7 +59,33 @@ public class MyWhiteboard {
 
     @OnMessage
     public void broadcastSnapshot(ByteBuffer data, Session session) throws IOException {
+        for (Session peer : peers) {
+            if (!peer.equals(session)) {
+                peer.getBasicRemote().sendBinary(data);
+            }
+        }
 
+        senderBean.sendMessage(data);
         bytebuffer = data;
     }
+
+//    public void onJMSMessage(@Observes @WSJMSMsg Message msg) {
+//
+//        byte[] bytes = null;
+//        try {
+//            bytes = msg.getBody(byte[].class);
+//            bytebuffer = ByteBuffer.wrap(bytes);
+//        } catch (JMSException ex) {
+//            Logger.getLogger(MyWhiteboard.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        Logger.getLogger(MyWhiteboard.class.getName()).log(Level.INFO, "Got JMS Message at WebSocket!");
+//        try {
+//            for (Session s : peers) {
+//                s.getBasicRemote().sendBinary(bytebuffer);
+//            }
+//        } catch (IOException ex) {
+//            Logger.getLogger(MyWhiteboard.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        System.out.println("ALVARO");
+//    }
 }
