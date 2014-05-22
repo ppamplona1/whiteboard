@@ -6,13 +6,16 @@
 
 package pt.uc.dei.aor.projecto8.whiteboard.messages;
 
+import java.nio.ByteBuffer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
+import javax.inject.Inject;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
+import pt.uc.dei.aor.projecto8.whiteboard.websocket.MyWhiteboard;
 
 /**
  *
@@ -24,16 +27,20 @@ import javax.jms.MessageListener;
 })
 public class Receiver implements MessageListener {
 
-    public Receiver() {
-    }
+    @Inject
+    private MyWhiteboard mywhiteboard;
 
     @Override
-    public void onMessage(Message message) {
+    public void onMessage(Message msg) {
+        byte[] bytes;
         try {
-            System.out.println("Recebido no Receiver: " + message.getBody(byte[].class));
+            bytes = msg.getBody(byte[].class);
+            ByteBuffer bytebuffer = ByteBuffer.wrap(bytes);
+            mywhiteboard.onJMSMessage(bytebuffer);
         } catch (JMSException ex) {
             Logger.getLogger(Receiver.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
 }

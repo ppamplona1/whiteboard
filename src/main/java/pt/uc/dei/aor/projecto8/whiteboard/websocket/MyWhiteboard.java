@@ -11,6 +11,8 @@ import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.websocket.EncodeException;
@@ -69,23 +71,17 @@ public class MyWhiteboard {
         bytebuffer = data;
     }
 
-//    public void onJMSMessage(@Observes @WSJMSMsg Message msg) {
-//
-//        byte[] bytes = null;
-//        try {
-//            bytes = msg.getBody(byte[].class);
-//            bytebuffer = ByteBuffer.wrap(bytes);
-//        } catch (JMSException ex) {
-//            Logger.getLogger(MyWhiteboard.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        Logger.getLogger(MyWhiteboard.class.getName()).log(Level.INFO, "Got JMS Message at WebSocket!");
-//        try {
-//            for (Session s : peers) {
-//                s.getBasicRemote().sendBinary(bytebuffer);
-//            }
-//        } catch (IOException ex) {
-//            Logger.getLogger(MyWhiteboard.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        System.out.println("ALVARO");
-//    }
+    public void onJMSMessage(ByteBuffer msg) {
+        try {
+            bytebuffer = msg;
+            for (Session s : peers) {
+
+                s.getBasicRemote().sendBinary(bytebuffer);
+
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(MyWhiteboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 }
