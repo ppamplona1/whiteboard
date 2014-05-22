@@ -13,7 +13,7 @@ import pt.uc.dei.aor.projecto8.whiteboard.entities.Groups;
 
 /**
  *
- * @author User
+ * @author Vitor
  */
 @Stateless
 public class GroupsFacade extends AbstractFacade<Groups> {
@@ -28,5 +28,5 @@ public class GroupsFacade extends AbstractFacade<Groups> {
     public GroupsFacade() {
         super(Groups.class);
     }
-
+    
 }

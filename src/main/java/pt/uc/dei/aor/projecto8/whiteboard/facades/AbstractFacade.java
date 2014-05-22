@@ -8,16 +8,20 @@ package pt.uc.dei.aor.projecto8.whiteboard.facades;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
- * @author User
+ * @author Vitor
  */
 public abstract class AbstractFacade<T> {
     private Class<T> entityClass;
+    Log log;
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
+        this.log = LogFactory.getLog(entityClass);
     }
 
     protected abstract EntityManager getEntityManager();
@@ -60,5 +64,5 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-
+    
 }

@@ -13,7 +13,7 @@ import pt.uc.dei.aor.projecto8.whiteboard.entities.Whiteboard;
 
 /**
  *
- * @author User
+ * @author Vitor
  */
 @Stateless
 public class WhiteboardFacade extends AbstractFacade<Whiteboard> {
@@ -28,5 +28,5 @@ public class WhiteboardFacade extends AbstractFacade<Whiteboard> {
     public WhiteboardFacade() {
         super(Whiteboard.class);
     }
-
+    
 }

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pt.uc.dei.aor.projecto8.whiteboard.entities;
 
 import java.io.Serializable;
@@ -12,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -30,9 +30,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Whiteboard.findAll", query = "SELECT w FROM Whiteboard w"),
     @NamedQuery(name = "Whiteboard.findByWhiteboardId", query = "SELECT w FROM Whiteboard w WHERE w.whiteboardId = :whiteboardId"),
-    @NamedQuery(name = "Whiteboard.findByName", query = "SELECT w FROM Whiteboard w WHERE w.name = :name"),
-    @NamedQuery(name = "Whiteboard.findByLocationFile", query = "SELECT w FROM Whiteboard w WHERE w.locationFile = :locationFile")})
+    @NamedQuery(name = "Whiteboard.findByName", query = "SELECT w FROM Whiteboard w WHERE w.name = :name")
+})
 public class Whiteboard implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -44,11 +45,9 @@ public class Whiteboard implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "location_file")
-    private String locationFile;
+    @Lob
+    @Column(length = 100000)
+    private byte[] imagedata;
     @JoinColumn(name = "users_username", referencedColumnName = "username")
     @ManyToOne(optional = false)
     private Users usersUsername;
@@ -60,12 +59,14 @@ public class Whiteboard implements Serializable {
         this.whiteboardId = whiteboardId;
     }
 
-    public Whiteboard(Integer whiteboardId, String name, String locationFile) {
-        this.whiteboardId = whiteboardId;
+    public Whiteboard(String name, byte[] imagedata, Users usersUsername) {
         this.name = name;
-        this.locationFile = locationFile;
+        this.imagedata = imagedata;
+        this.usersUsername = usersUsername;
     }
+    
 
+    
     public Integer getWhiteboardId() {
         return whiteboardId;
     }
@@ -82,13 +83,6 @@ public class Whiteboard implements Serializable {
         this.name = name;
     }
 
-    public String getLocationFile() {
-        return locationFile;
-    }
-
-    public void setLocationFile(String locationFile) {
-        this.locationFile = locationFile;
-    }
 
     public Users getUsersUsername() {
         return usersUsername;
@@ -122,5 +116,21 @@ public class Whiteboard implements Serializable {
     public String toString() {
         return "pt.uc.dei.aor.projecto8.whiteboard.entities.Whiteboard[ whiteboardId=" + whiteboardId + " ]";
     }
+
+    /**
+     * @return the imagedata
+     */
+    public byte[] getImagedata() {
+        return imagedata;
+    }
+
+    /**
+     * @param imagedata the imagedata to set
+     */
+    public void setImagedata(byte[] imagedata) {
+        this.imagedata = imagedata;
+    }
+
+   
 
 }
