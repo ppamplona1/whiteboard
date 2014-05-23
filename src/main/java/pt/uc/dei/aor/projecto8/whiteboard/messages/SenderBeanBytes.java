@@ -13,7 +13,6 @@ import javax.inject.Inject;
 import javax.jms.JMSConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.Topic;
-import pt.uc.dei.aor.projecto8.whiteboard.pojo.CountingPojo;
 
 /**
  *
@@ -41,8 +40,4 @@ public class SenderBeanBytes {
 
     }
 
-    public void sendNumberPeopleEditing(CountingPojo countingPojo) {
-        context.createObjectMessage(countingPojo);
-        System.out.println("sending numbers: " + countingPojo);
-    }
 }

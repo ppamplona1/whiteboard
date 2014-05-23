@@ -20,11 +20,13 @@
             <form name="canvas">
                 <canvas id="myCanvas" width="300" height="300"  style="border:3px solid #000000;"></canvas>
                 <br/>
-         
+
 
                 <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/whiteboard.js"></script>
                 <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/websocket.js"></script>
             </form>
+
+            Number of users editing: <label id="npeers"></label>
             <ui:define name ="left"> </ui:define>
         </div>
         <div id="content" class="left_content">

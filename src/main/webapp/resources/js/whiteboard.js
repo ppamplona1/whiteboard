@@ -98,3 +98,8 @@ function clearImage(){
     context.clearRect(0, 0, canvas.width, canvas.height);
     defineImageBinary();
 }
+function showPeersOnline(message) {
+    var outText = document.getElementById("npeers");
+    outText.innerHTML = message;
+    alert(message);
+}
