@@ -7,16 +7,21 @@
 package pt.uc.dei.aor.projecto8.whiteboard.entities;
 
 import java.io.Serializable;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -42,7 +47,7 @@ public class Groups implements Serializable {
     public static final String findByUsername = "Groups.findByUsername";
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @NotNull
     @Column(name = "groupid")
     private Integer groupid;
@@ -54,8 +59,10 @@ public class Groups implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
+
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "groupsGroupid")
     private List<Users> usersList;
 
@@ -104,6 +111,8 @@ public class Groups implements Serializable {
     public void setUsersList(List<Users> usersList) {
         this.usersList = usersList;
     }
+
+    
 
     @Override
     public int hashCode() {

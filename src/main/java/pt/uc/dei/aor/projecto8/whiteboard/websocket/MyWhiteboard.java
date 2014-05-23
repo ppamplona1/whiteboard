@@ -84,4 +84,14 @@ public class MyWhiteboard {
         }
 
     }
+
+    public ByteBuffer getBytebuffer() {
+        return bytebuffer;
+    }
+
+    public void setBytebuffer(ByteBuffer bytebuffer) {
+        MyWhiteboard.bytebuffer = bytebuffer;
+    }
+
+
 }

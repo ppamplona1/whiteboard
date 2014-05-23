@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -42,21 +44,22 @@ public class Users implements Serializable {
     public static final String findByUsername = "Users.findByUsername";
 
     private static final long serialVersionUID = 1L;
-    @Basic(optional = false)
+     @Id
+    @NotNull
+    @Column(name = "userid")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Integer userid;
+     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "password")
     private String password;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "userid")
-    private Integer userid;
+   
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usersUsername")
     private List<Whiteboard> whiteboardList;
     @JoinColumn(name = "groups_groupid", referencedColumnName = "groupid")

@@ -14,8 +14,12 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
+import pt.uc.dei.aor.projecto8.whiteboard.beans.LoggedUser;
+import pt.uc.dei.aor.projecto8.whiteboard.facades.WhiteboardFacade;
+import pt.uc.dei.aor.projecto8.whiteboard.websocket.MyWhiteboard;
 import sun.misc.BASE64Decoder;
 
 /**
@@ -25,7 +29,15 @@ import sun.misc.BASE64Decoder;
 @Named
 @RequestScoped
 public class CanvasController implements Serializable {
-
+    @Inject
+    private MyWhiteboard mywhiteboard;
+    
+    @Inject
+    private LoggedUser loggedUser;
+    
+    @Inject 
+    private WhiteboardFacade whiteboardfacade;
+    
     private String dataURL;
 
     public String getDataURL() {
@@ -48,4 +60,15 @@ public class CanvasController implements Serializable {
         System.out.println(imag);
     }
 
+    public void test(){
+        byte[] testing = mywhiteboard.getBytebuffer().array();
+        
+//        for (int i = 0; i < testing.length; i++) {
+//            System.out.println(i+">"+testing.toString());
+//        }
+        
+        whiteboardfacade.insertImage("teste", testing, loggedUser.getLoggedUser());
+        
+    }
+    
 }
