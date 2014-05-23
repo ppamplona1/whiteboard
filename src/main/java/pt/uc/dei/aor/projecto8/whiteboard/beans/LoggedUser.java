@@ -43,4 +43,12 @@ public class LoggedUser {
         return loggedUser != null;
     }
 
+    public UsersFacade getUserFacade() {
+        return userFacade;
+    }
+
+    public void setUserFacade(UsersFacade userFacade) {
+        this.userFacade = userFacade;
+    }
+
 }

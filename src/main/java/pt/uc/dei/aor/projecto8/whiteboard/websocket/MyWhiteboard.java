@@ -21,7 +21,7 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
-import pt.uc.dei.aor.projecto8.whiteboard.messages.SenderBean;
+import pt.uc.dei.aor.projecto8.whiteboard.messages.SenderBeanBytes;
 
 /**
  *
@@ -32,7 +32,7 @@ import pt.uc.dei.aor.projecto8.whiteboard.messages.SenderBean;
 public class MyWhiteboard {
 
     @Inject
-    private SenderBean senderBean;
+    private SenderBeanBytes senderBean;
     private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
     private static ByteBuffer bytebuffer = ByteBuffer.allocate(100000);
 
@@ -92,6 +92,5 @@ public class MyWhiteboard {
     public void setBytebuffer(ByteBuffer bytebuffer) {
         MyWhiteboard.bytebuffer = bytebuffer;
     }
-
 
 }

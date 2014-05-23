@@ -6,6 +6,7 @@
 
 package pt.uc.dei.aor.projecto8.whiteboard.facades;
 
+import java.util.GregorianCalendar;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,6 +19,7 @@ import pt.uc.dei.aor.projecto8.whiteboard.entities.Whiteboard;
  */
 @Stateless
 public class WhiteboardFacade extends AbstractFacade<Whiteboard> {
+
     @PersistenceContext(unitName = "WhiteboardPU")
     private EntityManager em;
 
@@ -29,16 +31,18 @@ public class WhiteboardFacade extends AbstractFacade<Whiteboard> {
     public WhiteboardFacade() {
         super(Whiteboard.class);
     }
-    
-    public void insertImage(String name, byte[] imagedata, Users user){
+
+    public void insertImage(String name, byte[] imagedata, Users user) {
         Whiteboard novo = new Whiteboard();
+
         novo.setName("teste");
         novo.setUsersUsername(user);
-      //  super.create(novo);
-        em.persist(novo);
         novo.setImagedata("teste".getBytes());
-        em.refresh(user);
+        novo.setImageDateCreator(new GregorianCalendar());
+        //  super.create(novo);
+        em.persist(novo);
+//        novo.setImagedata("teste".getBytes());
+
     }
-       
-    
+
 }

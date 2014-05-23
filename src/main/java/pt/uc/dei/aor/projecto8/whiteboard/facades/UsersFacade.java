@@ -21,11 +21,13 @@ import pt.uc.dei.aor.projecto8.whiteboard.utilities.MessagesForUser;
  */
 @Stateless
 public class UsersFacade extends AbstractFacade<Users> {
+
     @PersistenceContext(unitName = "WhiteboardPU")
     private EntityManager em;
 
     @Resource
     private SessionContext ctx;
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -34,17 +36,15 @@ public class UsersFacade extends AbstractFacade<Users> {
     public UsersFacade() {
         super(Users.class);
     }
-    
-        public Users findUserByUserName() {
+
+    public Users findUserByUserName() {
+
         try {
-            return (Users) em.createNamedQuery(Users.findByUsername).setParameter("username",ctx.getCallerPrincipal().getName()).getSingleResult();
+            return (Users) em.createNamedQuery(Users.findByUsername).setParameter("username", ctx.getCallerPrincipal().getName()).getSingleResult();
         } catch (NoResultException ex) {
             MessagesForUser.addMessageError("User not found");
             return new Users();
         }
     }
 
-    
-    
-    
 }

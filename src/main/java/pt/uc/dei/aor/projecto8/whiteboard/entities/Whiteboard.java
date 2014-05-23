@@ -10,6 +10,7 @@ import java.util.GregorianCalendar;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,7 +42,7 @@ public class Whiteboard implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @NotNull
     @Column(name = "whiteboard_id")
     private Integer whiteboardId;
@@ -51,14 +52,15 @@ public class Whiteboard implements Serializable {
     @Column(name = "name")
     private String name;
     @Lob
-    @Column(length = 100000)
+    @Basic(fetch = FetchType.LAZY)
+    @Column(length = 1000000000)
     private byte[] imagedata;
-    @JoinColumn(name = "users_username", referencedColumnName = "username")
+
     @NotNull
-    @Column(name = "Date")
+    @Column(name = "imageDateCreator")
     @Temporal(TemporalType.TIMESTAMP)
     private GregorianCalendar imageDateCreator;
-
+    @JoinColumn(name = "users_username", referencedColumnName = "username")
     @ManyToOne(optional = false)
     private Users usersUsername;
 
@@ -97,6 +99,14 @@ public class Whiteboard implements Serializable {
 
     public void setUsersUsername(Users usersUsername) {
         this.usersUsername = usersUsername;
+    }
+
+    public GregorianCalendar getImageDateCreator() {
+        return imageDateCreator;
+    }
+
+    public void setImageDateCreator(GregorianCalendar imageDateCreator) {
+        this.imageDateCreator = imageDateCreator;
     }
 
     @Override
