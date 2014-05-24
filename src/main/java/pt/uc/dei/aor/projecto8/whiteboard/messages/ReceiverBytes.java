@@ -25,7 +25,7 @@ import pt.uc.dei.aor.projecto8.whiteboard.websocket.MyWhiteboard;
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
     @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/myTopic")
 })
-public class Receiver implements MessageListener {
+public class ReceiverBytes implements MessageListener {
 
     @Inject
     private MyWhiteboard mywhiteboard;
@@ -38,7 +38,7 @@ public class Receiver implements MessageListener {
             ByteBuffer bytebuffer = ByteBuffer.wrap(bytes);
             mywhiteboard.onJMSMessage(bytebuffer);
         } catch (JMSException ex) {
-            Logger.getLogger(Receiver.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReceiverBytes.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

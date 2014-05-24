@@ -14,14 +14,12 @@ import javax.jms.JMSConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.Topic;
 
-
-
 /**
  *
  * @author User
  */
 @Stateless
-public class SenderBean {
+public class SenderBeanBytes {
 
     @Inject
     @JMSConnectionFactory("jms/myConnectionFactory")
@@ -31,7 +29,7 @@ public class SenderBean {
     @Resource(lookup = "jms/myTopic")
     private Topic topic;
 
-    public SenderBean() {
+    public SenderBeanBytes() {
     }
 
     public void sendMessage(ByteBuffer message) {
@@ -41,4 +39,5 @@ public class SenderBean {
         System.out.println("sending message " + message.toString());
 
     }
+
 }

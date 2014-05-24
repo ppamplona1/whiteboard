@@ -21,7 +21,8 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
-import pt.uc.dei.aor.projecto8.whiteboard.messages.SenderBean;
+import pt.uc.dei.aor.projecto8.whiteboard.messages.SenderBeanBytes;
+import pt.uc.dei.aor.projecto8.whiteboard.pojo.CountingPojo;
 
 /**
  *
@@ -32,9 +33,13 @@ import pt.uc.dei.aor.projecto8.whiteboard.messages.SenderBean;
 public class MyWhiteboard {
 
     @Inject
-    private SenderBean senderBean;
+    private SenderBeanBytes senderBean;
+    private static int numEdit = 0;
     private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
     private static ByteBuffer bytebuffer = ByteBuffer.allocate(100000);
+    private String userName = "";
+
+    private CountingPojo countingPojo = new CountingPojo();
 
     @OnMessage
     public void broadcastFigure(Figure figure, Session session) throws IOException, EncodeException {
@@ -50,13 +55,29 @@ public class MyWhiteboard {
     @OnOpen
     public void onOpen(Session peer) throws IOException {
         peers.add(peer);
+        if (peer.getUserPrincipal() != null) {
+            numEdit++;
+        }
+        sendNumber(numEdit);
         peer.getBasicRemote().sendBinary(bytebuffer);
 
     }
 
+    public void sendNumber(int number) throws IOException {
+        for (Session p : peers) {
+            p.getBasicRemote().sendText("{\"npeers\" : " + number + "}");
+        }
+    }
+
     @OnClose
-    public void onClose(Session peer) {
+    public void onClose(Session peer) throws IOException {
+        userName = peer.getId();
         peers.remove(peer);
+        if (numEdit > 0) {
+            numEdit--;
+        }
+        sendNumber(numEdit);
+
     }
 
     @OnMessage
@@ -92,6 +113,5 @@ public class MyWhiteboard {
     public void setBytebuffer(ByteBuffer bytebuffer) {
         MyWhiteboard.bytebuffer = bytebuffer;
     }
-
 
 }

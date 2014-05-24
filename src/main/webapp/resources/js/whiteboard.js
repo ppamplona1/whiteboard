@@ -52,8 +52,7 @@ function defineImage(evt) {
 }
 
 function getHidden()
-{
-  
+{ 
     dataUrl = canvas.toDataURL('image/png');
     document.getElementById("form:hidden").value = dataUrl;
 }
@@ -109,4 +108,9 @@ function clearImage(){
     alert('Vou limpar!!!');
     context.clearRect(0, 0, canvas.width, canvas.height);
     defineImageBinary();
+}
+function showPeersOnline(message) {
+    var outText = document.getElementById("npeers");
+    outText.innerHTML = message;
+    alert(message);
 }

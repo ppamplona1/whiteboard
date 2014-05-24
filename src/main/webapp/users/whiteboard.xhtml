@@ -47,9 +47,10 @@
 
                     </table>
                 </form>
-                    <h:form id="form">
+                   <h:form id="form">
                         <h:inputHidden id="hidden" value="#{canvasController.dataURL}" />
-                        <h:commandButton value="Submit"   onclick="getHidden()" action="#{canvasController.test()}"/>                    
+                        <h:commandButton value="Submit"   onclick="getHidden()" action="#{canvasController.submit}"/>                    
+                 
                     </h:form>
                 <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/whiteboard.js"></script>
                 <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/websocket.js"></script>

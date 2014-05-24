@@ -33,8 +33,14 @@ function sendText(json) {
                 
 function onMessage(evt) {
     console.log("received: " + evt.data);
-    if (typeof evt.data == "string") {
-        drawImageText(evt.data);
+
+    if (typeof evt.data === "string") {
+        var json = JSON.parse(evt.data);
+        if (json.hasOwnProperty('npeers')) {
+            showPeersOnline(json.npeers);          
+        } else {
+            drawImageText(evt.data);
+        }
     } else {
         drawImageBinary(evt.data);
     }
