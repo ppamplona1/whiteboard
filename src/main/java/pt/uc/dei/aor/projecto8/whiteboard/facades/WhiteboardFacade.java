@@ -49,4 +49,3 @@ public class WhiteboardFacade extends AbstractFacade<Whiteboard> {
     }
 
 }
-
