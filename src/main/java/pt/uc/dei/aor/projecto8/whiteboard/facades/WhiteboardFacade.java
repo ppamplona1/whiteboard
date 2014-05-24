@@ -32,12 +32,12 @@ public class WhiteboardFacade extends AbstractFacade<Whiteboard> {
 
     public void insertImage(String name, byte[] imagedata, Users user) {
         Whiteboard novo = new Whiteboard();
-        // novo.setName("teste");
-       // novo.setUsersUsername(user);
+        //novo.setName("teste");
+        //novo.setWhiteboardId(12);
+       // novo.setImagedata(imagedata);
+        //novo.setUsersUsername(user);
+        System.out.println(novo.toString());
         super.create(novo);
-      //  em.persist(novo);
-        // novo.setImagedata("teste".getBytes());
-        // em.refresh(user);
     }
 
     public EntityManager getEm() {
@@ -48,6 +48,4 @@ public class WhiteboardFacade extends AbstractFacade<Whiteboard> {
         this.em = em;
     }
 
-    
-    
 }

@@ -47,17 +47,12 @@
 
                     </table>
                 </form>
-                <f:view>
-                    <h:form>
-                        <h:commandLink value="Imprimir" action="#{canvasController.test()}"/>
+                    <h:form id="form">
+                        <h:inputHidden id="hidden" value="#{canvasController.dataURL}" />
+                        <h:commandButton value="Submit"   onclick="getHidden()" action="#{canvasController.test()}"/>                    
                     </h:form>
-                </f:view>
-
-                
                 <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/whiteboard.js"></script>
                 <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/websocket.js"></script>
-
-
             </ui:define>
         </ui:composition>
     </h:body>

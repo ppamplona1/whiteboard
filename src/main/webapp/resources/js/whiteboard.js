@@ -8,6 +8,9 @@ var canvas = document.getElementById("myCanvas");
 var context = canvas.getContext("2d");
 canvas.addEventListener("click", defineImage, false);
 
+var dataURL;
+var hidden;
+
 
 function getCurrentPos(evt) {
     var rect = canvas.getBoundingClientRect();
@@ -46,8 +49,15 @@ function defineImage(evt) {
   
         sendText(json);
         defineImageBinary();
-  
 }
+
+function getHidden()
+{
+  
+    dataUrl = canvas.toDataURL('image/png');
+    document.getElementById("form:hidden").value = dataUrl;
+}
+
 
 function drawImageText(image) {
     console.log("drawImageText");

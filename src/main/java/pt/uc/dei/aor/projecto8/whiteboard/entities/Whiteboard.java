@@ -41,7 +41,7 @@ public class Whiteboard implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @NotNull
     @Column(name = "whiteboard_id")
     private Integer whiteboardId;
