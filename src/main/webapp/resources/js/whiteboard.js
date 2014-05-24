@@ -93,6 +93,8 @@ function defineImageBinary() {
     sendBinary(buffer);
 }
 
+
+
 function clearImage(){
     alert('Vou limpar!!!');
     context.clearRect(0, 0, canvas.width, canvas.height);

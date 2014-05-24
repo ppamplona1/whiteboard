@@ -45,20 +45,19 @@ public class Whiteboard implements Serializable {
     @NotNull
     @Column(name = "whiteboard_id")
     private Integer whiteboardId;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
     @Lob
     @Column(length = 100000)
     private byte[] imagedata;
-    @JoinColumn(name = "users_username", referencedColumnName = "username")
+    
     @NotNull
     @Column(name = "Date")
     @Temporal(TemporalType.TIMESTAMP)
     private GregorianCalendar imageDateCreator;
-
+    
+    @JoinColumn(name = "users_username", referencedColumnName = "username")
     @ManyToOne(optional = false)
     private Users usersUsername;
 
@@ -136,6 +135,20 @@ public class Whiteboard implements Serializable {
      */
     public void setImagedata(byte[] imagedata) {
         this.imagedata = imagedata;
+    }
+
+    /**
+     * @return the imageDateCreator
+     */
+    public GregorianCalendar getImageDateCreator() {
+        return imageDateCreator;
+    }
+
+    /**
+     * @param imageDateCreator the imageDateCreator to set
+     */
+    public void setImageDateCreator(GregorianCalendar imageDateCreator) {
+        this.imageDateCreator = imageDateCreator;
     }
 
 }
